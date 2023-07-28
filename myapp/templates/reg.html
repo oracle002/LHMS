@@ -1,0 +1,209 @@
+{% load static %}
+<!doctype html>
+                        <html>
+                            <head>
+                                <meta charset='utf-8'>
+                                <meta name='viewport' content='width=device-width, initial-scale=1'>
+                                <title>REGISTRATION</title>
+                                <link href='https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css' rel='stylesheet'>
+                                <link href='' rel='stylesheet'>
+                                <style>html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    width: 100vw;
+    height: 100vh;
+    font-family: 'Open sans';
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #5b8c51
+}
+
+body>* {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+.wrapper {
+    width: 700px;
+    background: #FFF;
+    border-radius: 10px;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, .05);
+    overflow: hidden;
+}
+
+h1.title {
+    padding: 15px 0;
+    margin-left: 25px;
+    font-weight: normal;
+    color: #5b8c51
+}
+
+.form {
+    width: 700px;
+
+}
+
+.myform {
+    background: #F4F5F7;
+    padding: 25px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 25px
+}
+
+.myform label {
+    display: block;
+    color: #000;
+    font-weight: bold;
+    font-size: .8rem;
+    margin-bottom: 10px;
+}
+
+.myform input {
+    border: 0;
+    outline: 0;
+    height: 50px;
+    background: #D3D3D3;
+    width: 100%;
+    border-radius: 5px;
+    color: #5b8c51;
+    font-weight: 700;
+    font-size: .9rem;
+    text-indent: 15px;
+    border: 2px solid transparent;
+    transition: border 250ms;
+}
+
+.full-width {
+    grid-column: -1 / 1
+}
+
+.button {
+    grid-column: -1 / 1;
+    display: flex;
+    justify-content: center;
+}
+
+.button button {
+    border: 0;
+    outline: 0;
+    width: 120px;
+    height: 50px;
+    border-radius: 50px;
+    color: #FFF;
+    font-weight: bold;
+    font-size: .9rem;
+    cursor: pointer;
+    background: linear-gradient(356deg, #5b8c51 0%, rgba(83, 208, 11, 0.711) 100%);
+}
+
+.button button:hover {
+    background: #5b8c51;
+}</style>
+                                <script type='text/javascript' src=''></script>
+                                <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'></script>
+                                <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js'></script>
+                            </head>
+                            <body oncontextmenu='return false' class='snippet-body'>
+                             <div class="wrapper">
+     <div class="form">
+         <h1 class="title">REGESITRATION</h1>
+        {% if error_msg %}
+	<div class="alert alert-danger text-center rounded-pill">
+		<p class="error">{{ error_msg }}</p>
+	</div>
+{% endif %}
+
+         <form method="POST" class="myform" onsubmit="return validateForm()">
+                {% csrf_token %}
+             <div class="control-from">
+                 <label for="firstname">First Name *</label>
+                 <input type="text" name="firstname" id="firstname" pattern="[a-zA-Z]+" value="" required>
+             </div>
+
+             <div class="control-from">
+                 <label for="lastname">Last Name *</label>
+                 <input type="text" name="lastname" pattern="[a-zA-Z]+" id="lastname" value="" required>
+             </div>
+
+             <div class="control-from">
+                 <label for="emailaddress">Email Address *</label>
+                 <input type="email" name="email" id="emailaddress" value="" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+
+             </div>
+
+             <div class="control-from">
+                 <label for="phonenumber">Phone Number</label>
+                 <input type="phone" name="phonenumber" id="phonenumber" value="" required>
+             </div>
+
+             <div class="full-width">
+                 <label>Address Line 1</label>
+                 <input type="text"  name="addressline1" id="addressline1" value="" required>
+             </div>
+             <div class="full-width">
+                 <label>Address Line 2</label>
+                 <input type="text"  name="addressline2" id="addressline2" value="" required>
+             </div>
+
+
+
+             <div class="control-from">
+                 <label >Place</label>
+                 <input type="text" name="place" id="place" value="" required>
+             </div>
+
+             <div class="control-from">
+                 <label >PIN </label>
+                 <input type="text" name="pin" id="pin" value="" required>
+             </div>
+
+             <div class="full-width">
+                 <label>password</label>
+                 <input type="password"  name="password" id="password" value="" required>
+             </div>
+
+             <div class="button">
+                  <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
+             </div>
+
+         </form>
+         <script>
+function validateForm() {
+  // Get the phone number and PIN fields
+  var phone = document.getElementById("phonenumber").value;
+  var pin = document.getElementById("pin").value;
+
+  // Validate the phone number
+  var phoneRegex = /^[0-9]{10}$/; // 10-digit phone number
+  if (!phoneRegex.test(phone)) {
+    alert("Please enter a valid phone number.");
+    return false;
+  }
+
+  // Validate the PIN
+  var pinRegex = /^[0-9]{6}$/; // 6-digit PIN
+  if (!pinRegex.test(pin)) {
+    alert("Please enter a valid PIN.");
+    return false;
+  }
+
+  // If all fields are valid, return true to submit the form
+  return true;
+}
+</script>
+
+     </div>
+ </div>
+                            <script type='text/javascript'></script>
+                            </body>
+                        </html>
